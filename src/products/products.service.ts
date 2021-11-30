@@ -26,7 +26,7 @@ export class ProductsService {
             }
 
         async updateProduct(id:string, createProductDTO:CreateProductDTO):Promise<Products>{
-            const data = await this.ProductModel.findByIdAndUpdate(id, createProductDTO)
+            const data = await this.ProductModel.findByIdAndUpdate(id, createProductDTO, {new:true})
             return data
         }
 
