@@ -25,13 +25,15 @@ export class ProductsService {
             return create
             }
 
-        // updateProduct(){
+        async updateProduct(id:string, createProductDTO:CreateProductDTO):Promise<Products>{
+            const data = await this.ProductModel.findByIdAndUpdate(id, createProductDTO)
+            return data
+        }
 
-        // }
-
-        // deleteProduct(){
-
-        // }
+        async deleteProduct(id:string):Promise<Products>{
+            const data = await this.ProductModel.findByIdAndDelete(id)
+            return data
+        }
     
 
 
