@@ -27,14 +27,18 @@ export class ProductsController {
     @Get(':id') 
     
     async getProducts(@Res() res, @Param('id') id) {
-        const data = await this.productService.getProduct(id)
-        if(!data) return res.status(HttpStatus.NOT_FOUND).json({
-            message:"Product Not Found"
-        })
-        return res.status(HttpStatus.OK).json({
-            data
-        }) 
-    }
+        try {
+            const data = await this.productService.getProduct(id)
+            return res.status(HttpStatus.OK).json({
+                data
+            }) 
+        } catch(error){
+            if(error) return res.status(HttpStatus.NOT_FOUND).json({
+                message:"Product Not Found"
+            })
+
+        }
+    }  
 
     @Put(':id')
     async updateProduct(@Res() res, @Param('id') id, @Body() createProductDTO: CreateProductDTO){
