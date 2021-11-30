@@ -42,20 +42,27 @@ export class ProductsController {
 
     @Put(':id')
     async updateProduct(@Res() res, @Param('id') id, @Body() createProductDTO: CreateProductDTO){
+        try{
         const data = this.productService.updateProduct(id, createProductDTO )
-        if(!data) res.status(HttpStatus.NOT_FOUND).json({
-            message:'Product Not found'
-        })
-        return res.status(HttpStatus.OK).json({data})
+            return res.status(HttpStatus.OK).json({data})
+         } catch(error) {
+            if(error) res.status(HttpStatus.NOT_FOUND).json({
+                message:'Product Not found'
+            })
+         }
+     
     }
 
     @Delete(':id')
     async deleteProduct(@Param('id') id, @Res() res ){
+        try {
         const deleted = await this.productService.deleteProduct(id)
-        if(!deleted)  throw new NotFoundException("Product Already Deleted");
         return res.status(HttpStatus.OK).json({
             message:'Product deleted',
             deleted
         })
+    } catch(error) {
+        if(error)  throw new NotFoundException("Product Already Deleted");
+        }
     }
 }
