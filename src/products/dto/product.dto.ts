@@ -1,4 +1,4 @@
-export class createProductDTO {
+export class CreateProductDTO {
     name:string
     description:string
     imageUrl:string
